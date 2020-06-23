@@ -1,0 +1,44 @@
+Estructura del proyecto:
+util.h y util.c           ->  contienen archivos de encabezado y archivos de implementacion
+errormsg.h y errormsg.c   ->  Mensajes de manejo de error y posicion dentro del archivos
+ytab.h y tokens.h         ->  Contiene la definicion de Tokens
+simple.l                  ->  contiene las especificaciones para que flex nos proporcione una funcoin de analisis lexico en c
+driver.c                  ->  Archivo que hace la prueba de la funcion simple.c
+makefile                  ->  Permite automatizar el proceso de compilacion
+
+
+Tokens multilexema:
+ - Identificadores
+ - Cometarios
+ - Enteros
+ - Cadenas de caracteres
+
+
+Palabras reservadas:
+ - regresa
+ - def
+ - si
+ - otro
+ - mientras
+
+
+Operadores y signos de puntuacion:
+  ;    Final de sentencia
+  {    Llave inicial
+  }    Llave final
+  =    Asignacion
+  (    Parentesis inicial
+  )    Parentesis final
+  :    Definir tipo de retorno en funcion
+  +    Suma
+  -    Resta
+  *    Multiplicacion
+  /    Division
+  ==   Igual a
+  <>   Diferente a
+  >    Mayor que
+  <    Menos que
+  >=   Mayor o igual a
+  <=   Menor o igual a
+  &    And
+  |    Or

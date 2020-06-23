@@ -1,0 +1,20 @@
+---
+    Este es un programa que calcula el
+    factorial de un numero.
+---
+despliega
+==
+<>
+>=
+<=
+{
+    n=5;
+    i=1;
+    facotiral=1;
+    mientras i <= 5
+    {
+        factorial=factorial*i;
+        i= i+ 1;
+    }
+    despliega (i);  
+}

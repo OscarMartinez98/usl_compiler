@@ -1,0 +1,19 @@
+---
+    Este es un programa que calcula el n-sesimo
+    numero de fibonacci.
+---
+
+{
+	n=5;
+    aux1=0;
+    aux2=1;
+    aux3=0;
+
+	mientras i <= 5
+	{
+      aux1=aux1+aux2;
+      aux2=aux3;
+      aux3=aux1;
+    }
+    despliega (aux1);  
+}
