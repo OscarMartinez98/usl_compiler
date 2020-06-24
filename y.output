@@ -1,0 +1,1159 @@
+Terminals unused in grammar
+
+   COMENTARIO
+
+
+Grammar
+
+    0 $accept: program $end
+
+    1 program: sentList instBlock
+    2        | instBlock
+
+    3 sent: assignation ';'
+    4     | callFunction ';'
+    5     | REGRESA '(' ID ')' ';'
+    6     | DESPLIEGA '(' CADENA ')' ';'
+    7     | defFunction
+    8     | controlSentence
+
+    9 assignation: ID
+   10            | ID '=' arithExpression
+
+   11 callFunction: ID '=' paramList '(' ')'
+
+   12 defFunction: DEF ID '(' paramList ')' instBlock
+
+   13 controlSentence: whileSentence
+   14                | ifSentence
+
+   15 ifSentence: SI '(' logicSentence ')' '{' sentList '}'
+   16           | SI '(' logicSentence ')' '{' sentList '}' OTRO '{' sentList '}'
+
+   17 whileSentence: MIENTRAS '(' logicSentence ')' '{' sentList '}'
+
+   18 sentList: sent ';'
+   19         | sent ';' sentList
+
+   20 instBlock: '{' sentList '}'
+   21          | '{' '}'
+
+   22 param: arithExpression
+   23      | arithExpression ',' param
+
+   24 paramList: '(' param ')'
+   25          | '(' ')'
+
+   26 arithExpression: ENTERO
+   27                | ID
+   28                | ENTERO '+' arithExpression
+   29                | ENTERO '-' arithExpression
+   30                | ENTERO '*' arithExpression
+   31                | ENTERO '/' arithExpression
+   32                | ID '+' arithExpression
+   33                | ID '-' arithExpression
+   34                | ID '*' arithExpression
+   35                | ID '/' arithExpression
+
+   36 logicExpression: arithExpression LESSOREQ arithExpression
+   37                | arithExpression MOREOREQ arithExpression
+   38                | arithExpression DIFER arithExpression
+   39                | arithExpression IGUAL arithExpression
+   40                | arithExpression '>' arithExpression
+   41                | arithExpression '<' arithExpression
+   42                | ID
+   43                | ENTERO
+
+   44 logicSentence: logicExpression '&' logicExpression
+   45              | logicExpression '|' logicExpression
+   46              | '(' logicSentence ')'
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+'&' (38) 44
+'(' (40) 5 6 11 12 15 16 17 24 25 46
+')' (41) 5 6 11 12 15 16 17 24 25 46
+'*' (42) 30 34
+'+' (43) 28 32
+',' (44) 23
+'-' (45) 29 33
+'/' (47) 31 35
+';' (59) 3 4 5 6 18 19
+'<' (60) 41
+'=' (61) 10 11
+'>' (62) 40
+'{' (123) 15 16 17 20 21
+'|' (124) 45
+'}' (125) 15 16 17 20 21
+error (256)
+ID (258) 5 9 10 11 12 27 32 33 34 35 42
+COMENTARIO (259)
+ENTERO (260) 26 28 29 30 31 43
+CADENA (261) 6
+REGRESA (262) 5
+DEF (263) 12
+SI (264) 15 16
+OTRO (265) 16
+MIENTRAS (266) 17
+DESPLIEGA (267) 6
+IGUAL (268) 39
+DIFER (269) 38
+LESSOREQ (270) 36
+MOREOREQ (271) 37
+
+
+Nonterminals, with rules where they appear
+
+$accept (32)
+    on left: 0
+program (33)
+    on left: 1 2, on right: 0
+sent (34)
+    on left: 3 4 5 6 7 8, on right: 18 19
+assignation (35)
+    on left: 9 10, on right: 3
+callFunction (36)
+    on left: 11, on right: 4
+defFunction (37)
+    on left: 12, on right: 7
+controlSentence (38)
+    on left: 13 14, on right: 8
+ifSentence (39)
+    on left: 15 16, on right: 14
+whileSentence (40)
+    on left: 17, on right: 13
+sentList (41)
+    on left: 18 19, on right: 1 15 16 17 19 20
+instBlock (42)
+    on left: 20 21, on right: 1 2 12
+param (43)
+    on left: 22 23, on right: 23 24
+paramList (44)
+    on left: 24 25, on right: 11 12
+arithExpression (45)
+    on left: 26 27 28 29 30 31 32 33 34 35, on right: 10 22 23 28 29
+    30 31 32 33 34 35 36 37 38 39 40 41
+logicExpression (46)
+    on left: 36 37 38 39 40 41 42 43, on right: 44 45
+logicSentence (47)
+    on left: 44 45 46, on right: 15 16 17 46
+
+
+State 0
+
+    0 $accept: . program $end
+
+    ID         shift, and go to state 1
+    REGRESA    shift, and go to state 2
+    DEF        shift, and go to state 3
+    SI         shift, and go to state 4
+    MIENTRAS   shift, and go to state 5
+    DESPLIEGA  shift, and go to state 6
+    '{'        shift, and go to state 7
+
+    program          go to state 8
+    sent             go to state 9
+    assignation      go to state 10
+    callFunction     go to state 11
+    defFunction      go to state 12
+    controlSentence  go to state 13
+    ifSentence       go to state 14
+    whileSentence    go to state 15
+    sentList         go to state 16
+    instBlock        go to state 17
+
+
+State 1
+
+    9 assignation: ID .
+   10            | ID . '=' arithExpression
+   11 callFunction: ID . '=' paramList '(' ')'
+
+    '='  shift, and go to state 18
+
+    $default  reduce using rule 9 (assignation)
+
+
+State 2
+
+    5 sent: REGRESA . '(' ID ')' ';'
+
+    '('  shift, and go to state 19
+
+
+State 3
+
+   12 defFunction: DEF . ID '(' paramList ')' instBlock
+
+    ID  shift, and go to state 20
+
+
+State 4
+
+   15 ifSentence: SI . '(' logicSentence ')' '{' sentList '}'
+   16           | SI . '(' logicSentence ')' '{' sentList '}' OTRO '{' sentList '}'
+
+    '('  shift, and go to state 21
+
+
+State 5
+
+   17 whileSentence: MIENTRAS . '(' logicSentence ')' '{' sentList '}'
+
+    '('  shift, and go to state 22
+
+
+State 6
+
+    6 sent: DESPLIEGA . '(' CADENA ')' ';'
+
+    '('  shift, and go to state 23
+
+
+State 7
+
+   20 instBlock: '{' . sentList '}'
+   21          | '{' . '}'
+
+    ID         shift, and go to state 1
+    REGRESA    shift, and go to state 2
+    DEF        shift, and go to state 3
+    SI         shift, and go to state 4
+    MIENTRAS   shift, and go to state 5
+    DESPLIEGA  shift, and go to state 6
+    '}'        shift, and go to state 24
+
+    sent             go to state 9
+    assignation      go to state 10
+    callFunction     go to state 11
+    defFunction      go to state 12
+    controlSentence  go to state 13
+    ifSentence       go to state 14
+    whileSentence    go to state 15
+    sentList         go to state 25
+
+
+State 8
+
+    0 $accept: program . $end
+
+    $end  shift, and go to state 26
+
+
+State 9
+
+   18 sentList: sent . ';'
+   19         | sent . ';' sentList
+
+    ';'  shift, and go to state 27
+
+
+State 10
+
+    3 sent: assignation . ';'
+
+    ';'  shift, and go to state 28
+
+
+State 11
+
+    4 sent: callFunction . ';'
+
+    ';'  shift, and go to state 29
+
+
+State 12
+
+    7 sent: defFunction .
+
+    $default  reduce using rule 7 (sent)
+
+
+State 13
+
+    8 sent: controlSentence .
+
+    $default  reduce using rule 8 (sent)
+
+
+State 14
+
+   14 controlSentence: ifSentence .
+
+    $default  reduce using rule 14 (controlSentence)
+
+
+State 15
+
+   13 controlSentence: whileSentence .
+
+    $default  reduce using rule 13 (controlSentence)
+
+
+State 16
+
+    1 program: sentList . instBlock
+
+    '{'  shift, and go to state 7
+
+    instBlock  go to state 30
+
+
+State 17
+
+    2 program: instBlock .
+
+    $default  reduce using rule 2 (program)
+
+
+State 18
+
+   10 assignation: ID '=' . arithExpression
+   11 callFunction: ID '=' . paramList '(' ')'
+
+    ID      shift, and go to state 31
+    ENTERO  shift, and go to state 32
+    '('     shift, and go to state 33
+
+    paramList        go to state 34
+    arithExpression  go to state 35
+
+
+State 19
+
+    5 sent: REGRESA '(' . ID ')' ';'
+
+    ID  shift, and go to state 36
+
+
+State 20
+
+   12 defFunction: DEF ID . '(' paramList ')' instBlock
+
+    '('  shift, and go to state 37
+
+
+State 21
+
+   15 ifSentence: SI '(' . logicSentence ')' '{' sentList '}'
+   16           | SI '(' . logicSentence ')' '{' sentList '}' OTRO '{' sentList '}'
+
+    ID      shift, and go to state 38
+    ENTERO  shift, and go to state 39
+    '('     shift, and go to state 40
+
+    arithExpression  go to state 41
+    logicExpression  go to state 42
+    logicSentence    go to state 43
+
+
+State 22
+
+   17 whileSentence: MIENTRAS '(' . logicSentence ')' '{' sentList '}'
+
+    ID      shift, and go to state 38
+    ENTERO  shift, and go to state 39
+    '('     shift, and go to state 40
+
+    arithExpression  go to state 41
+    logicExpression  go to state 42
+    logicSentence    go to state 44
+
+
+State 23
+
+    6 sent: DESPLIEGA '(' . CADENA ')' ';'
+
+    CADENA  shift, and go to state 45
+
+
+State 24
+
+   21 instBlock: '{' '}' .
+
+    $default  reduce using rule 21 (instBlock)
+
+
+State 25
+
+   20 instBlock: '{' sentList . '}'
+
+    '}'  shift, and go to state 46
+
+
+State 26
+
+    0 $accept: program $end .
+
+    $default  accept
+
+
+State 27
+
+   18 sentList: sent ';' .
+   19         | sent ';' . sentList
+
+    ID         shift, and go to state 1
+    REGRESA    shift, and go to state 2
+    DEF        shift, and go to state 3
+    SI         shift, and go to state 4
+    MIENTRAS   shift, and go to state 5
+    DESPLIEGA  shift, and go to state 6
+
+    $default  reduce using rule 18 (sentList)
+
+    sent             go to state 9
+    assignation      go to state 10
+    callFunction     go to state 11
+    defFunction      go to state 12
+    controlSentence  go to state 13
+    ifSentence       go to state 14
+    whileSentence    go to state 15
+    sentList         go to state 47
+
+
+State 28
+
+    3 sent: assignation ';' .
+
+    $default  reduce using rule 3 (sent)
+
+
+State 29
+
+    4 sent: callFunction ';' .
+
+    $default  reduce using rule 4 (sent)
+
+
+State 30
+
+    1 program: sentList instBlock .
+
+    $default  reduce using rule 1 (program)
+
+
+State 31
+
+   27 arithExpression: ID .
+   32                | ID . '+' arithExpression
+   33                | ID . '-' arithExpression
+   34                | ID . '*' arithExpression
+   35                | ID . '/' arithExpression
+
+    '+'  shift, and go to state 48
+    '-'  shift, and go to state 49
+    '*'  shift, and go to state 50
+    '/'  shift, and go to state 51
+
+    $default  reduce using rule 27 (arithExpression)
+
+
+State 32
+
+   26 arithExpression: ENTERO .
+   28                | ENTERO . '+' arithExpression
+   29                | ENTERO . '-' arithExpression
+   30                | ENTERO . '*' arithExpression
+   31                | ENTERO . '/' arithExpression
+
+    '+'  shift, and go to state 52
+    '-'  shift, and go to state 53
+    '*'  shift, and go to state 54
+    '/'  shift, and go to state 55
+
+    $default  reduce using rule 26 (arithExpression)
+
+
+State 33
+
+   24 paramList: '(' . param ')'
+   25          | '(' . ')'
+
+    ID      shift, and go to state 31
+    ENTERO  shift, and go to state 32
+    ')'     shift, and go to state 56
+
+    param            go to state 57
+    arithExpression  go to state 58
+
+
+State 34
+
+   11 callFunction: ID '=' paramList . '(' ')'
+
+    '('  shift, and go to state 59
+
+
+State 35
+
+   10 assignation: ID '=' arithExpression .
+
+    $default  reduce using rule 10 (assignation)
+
+
+State 36
+
+    5 sent: REGRESA '(' ID . ')' ';'
+
+    ')'  shift, and go to state 60
+
+
+State 37
+
+   12 defFunction: DEF ID '(' . paramList ')' instBlock
+
+    '('  shift, and go to state 33
+
+    paramList  go to state 61
+
+
+State 38
+
+   27 arithExpression: ID .
+   32                | ID . '+' arithExpression
+   33                | ID . '-' arithExpression
+   34                | ID . '*' arithExpression
+   35                | ID . '/' arithExpression
+   42 logicExpression: ID .
+
+    '+'  shift, and go to state 48
+    '-'  shift, and go to state 49
+    '*'  shift, and go to state 50
+    '/'  shift, and go to state 51
+
+    '&'       reduce using rule 42 (logicExpression)
+    '|'       reduce using rule 42 (logicExpression)
+    ')'       reduce using rule 42 (logicExpression)
+    $default  reduce using rule 27 (arithExpression)
+
+
+State 39
+
+   26 arithExpression: ENTERO .
+   28                | ENTERO . '+' arithExpression
+   29                | ENTERO . '-' arithExpression
+   30                | ENTERO . '*' arithExpression
+   31                | ENTERO . '/' arithExpression
+   43 logicExpression: ENTERO .
+
+    '+'  shift, and go to state 52
+    '-'  shift, and go to state 53
+    '*'  shift, and go to state 54
+    '/'  shift, and go to state 55
+
+    '&'       reduce using rule 43 (logicExpression)
+    '|'       reduce using rule 43 (logicExpression)
+    ')'       reduce using rule 43 (logicExpression)
+    $default  reduce using rule 26 (arithExpression)
+
+
+State 40
+
+   46 logicSentence: '(' . logicSentence ')'
+
+    ID      shift, and go to state 38
+    ENTERO  shift, and go to state 39
+    '('     shift, and go to state 40
+
+    arithExpression  go to state 41
+    logicExpression  go to state 42
+    logicSentence    go to state 62
+
+
+State 41
+
+   36 logicExpression: arithExpression . LESSOREQ arithExpression
+   37                | arithExpression . MOREOREQ arithExpression
+   38                | arithExpression . DIFER arithExpression
+   39                | arithExpression . IGUAL arithExpression
+   40                | arithExpression . '>' arithExpression
+   41                | arithExpression . '<' arithExpression
+
+    IGUAL     shift, and go to state 63
+    DIFER     shift, and go to state 64
+    LESSOREQ  shift, and go to state 65
+    MOREOREQ  shift, and go to state 66
+    '>'       shift, and go to state 67
+    '<'       shift, and go to state 68
+
+
+State 42
+
+   44 logicSentence: logicExpression . '&' logicExpression
+   45              | logicExpression . '|' logicExpression
+
+    '&'  shift, and go to state 69
+    '|'  shift, and go to state 70
+
+
+State 43
+
+   15 ifSentence: SI '(' logicSentence . ')' '{' sentList '}'
+   16           | SI '(' logicSentence . ')' '{' sentList '}' OTRO '{' sentList '}'
+
+    ')'  shift, and go to state 71
+
+
+State 44
+
+   17 whileSentence: MIENTRAS '(' logicSentence . ')' '{' sentList '}'
+
+    ')'  shift, and go to state 72
+
+
+State 45
+
+    6 sent: DESPLIEGA '(' CADENA . ')' ';'
+
+    ')'  shift, and go to state 73
+
+
+State 46
+
+   20 instBlock: '{' sentList '}' .
+
+    $default  reduce using rule 20 (instBlock)
+
+
+State 47
+
+   19 sentList: sent ';' sentList .
+
+    $default  reduce using rule 19 (sentList)
+
+
+State 48
+
+   32 arithExpression: ID '+' . arithExpression
+
+    ID      shift, and go to state 31
+    ENTERO  shift, and go to state 32
+
+    arithExpression  go to state 74
+
+
+State 49
+
+   33 arithExpression: ID '-' . arithExpression
+
+    ID      shift, and go to state 31
+    ENTERO  shift, and go to state 32
+
+    arithExpression  go to state 75
+
+
+State 50
+
+   34 arithExpression: ID '*' . arithExpression
+
+    ID      shift, and go to state 31
+    ENTERO  shift, and go to state 32
+
+    arithExpression  go to state 76
+
+
+State 51
+
+   35 arithExpression: ID '/' . arithExpression
+
+    ID      shift, and go to state 31
+    ENTERO  shift, and go to state 32
+
+    arithExpression  go to state 77
+
+
+State 52
+
+   28 arithExpression: ENTERO '+' . arithExpression
+
+    ID      shift, and go to state 31
+    ENTERO  shift, and go to state 32
+
+    arithExpression  go to state 78
+
+
+State 53
+
+   29 arithExpression: ENTERO '-' . arithExpression
+
+    ID      shift, and go to state 31
+    ENTERO  shift, and go to state 32
+
+    arithExpression  go to state 79
+
+
+State 54
+
+   30 arithExpression: ENTERO '*' . arithExpression
+
+    ID      shift, and go to state 31
+    ENTERO  shift, and go to state 32
+
+    arithExpression  go to state 80
+
+
+State 55
+
+   31 arithExpression: ENTERO '/' . arithExpression
+
+    ID      shift, and go to state 31
+    ENTERO  shift, and go to state 32
+
+    arithExpression  go to state 81
+
+
+State 56
+
+   25 paramList: '(' ')' .
+
+    $default  reduce using rule 25 (paramList)
+
+
+State 57
+
+   24 paramList: '(' param . ')'
+
+    ')'  shift, and go to state 82
+
+
+State 58
+
+   22 param: arithExpression .
+   23      | arithExpression . ',' param
+
+    ','  shift, and go to state 83
+
+    $default  reduce using rule 22 (param)
+
+
+State 59
+
+   11 callFunction: ID '=' paramList '(' . ')'
+
+    ')'  shift, and go to state 84
+
+
+State 60
+
+    5 sent: REGRESA '(' ID ')' . ';'
+
+    ';'  shift, and go to state 85
+
+
+State 61
+
+   12 defFunction: DEF ID '(' paramList . ')' instBlock
+
+    ')'  shift, and go to state 86
+
+
+State 62
+
+   46 logicSentence: '(' logicSentence . ')'
+
+    ')'  shift, and go to state 87
+
+
+State 63
+
+   39 logicExpression: arithExpression IGUAL . arithExpression
+
+    ID      shift, and go to state 31
+    ENTERO  shift, and go to state 32
+
+    arithExpression  go to state 88
+
+
+State 64
+
+   38 logicExpression: arithExpression DIFER . arithExpression
+
+    ID      shift, and go to state 31
+    ENTERO  shift, and go to state 32
+
+    arithExpression  go to state 89
+
+
+State 65
+
+   36 logicExpression: arithExpression LESSOREQ . arithExpression
+
+    ID      shift, and go to state 31
+    ENTERO  shift, and go to state 32
+
+    arithExpression  go to state 90
+
+
+State 66
+
+   37 logicExpression: arithExpression MOREOREQ . arithExpression
+
+    ID      shift, and go to state 31
+    ENTERO  shift, and go to state 32
+
+    arithExpression  go to state 91
+
+
+State 67
+
+   40 logicExpression: arithExpression '>' . arithExpression
+
+    ID      shift, and go to state 31
+    ENTERO  shift, and go to state 32
+
+    arithExpression  go to state 92
+
+
+State 68
+
+   41 logicExpression: arithExpression '<' . arithExpression
+
+    ID      shift, and go to state 31
+    ENTERO  shift, and go to state 32
+
+    arithExpression  go to state 93
+
+
+State 69
+
+   44 logicSentence: logicExpression '&' . logicExpression
+
+    ID      shift, and go to state 38
+    ENTERO  shift, and go to state 39
+
+    arithExpression  go to state 41
+    logicExpression  go to state 94
+
+
+State 70
+
+   45 logicSentence: logicExpression '|' . logicExpression
+
+    ID      shift, and go to state 38
+    ENTERO  shift, and go to state 39
+
+    arithExpression  go to state 41
+    logicExpression  go to state 95
+
+
+State 71
+
+   15 ifSentence: SI '(' logicSentence ')' . '{' sentList '}'
+   16           | SI '(' logicSentence ')' . '{' sentList '}' OTRO '{' sentList '}'
+
+    '{'  shift, and go to state 96
+
+
+State 72
+
+   17 whileSentence: MIENTRAS '(' logicSentence ')' . '{' sentList '}'
+
+    '{'  shift, and go to state 97
+
+
+State 73
+
+    6 sent: DESPLIEGA '(' CADENA ')' . ';'
+
+    ';'  shift, and go to state 98
+
+
+State 74
+
+   32 arithExpression: ID '+' arithExpression .
+
+    $default  reduce using rule 32 (arithExpression)
+
+
+State 75
+
+   33 arithExpression: ID '-' arithExpression .
+
+    $default  reduce using rule 33 (arithExpression)
+
+
+State 76
+
+   34 arithExpression: ID '*' arithExpression .
+
+    $default  reduce using rule 34 (arithExpression)
+
+
+State 77
+
+   35 arithExpression: ID '/' arithExpression .
+
+    $default  reduce using rule 35 (arithExpression)
+
+
+State 78
+
+   28 arithExpression: ENTERO '+' arithExpression .
+
+    $default  reduce using rule 28 (arithExpression)
+
+
+State 79
+
+   29 arithExpression: ENTERO '-' arithExpression .
+
+    $default  reduce using rule 29 (arithExpression)
+
+
+State 80
+
+   30 arithExpression: ENTERO '*' arithExpression .
+
+    $default  reduce using rule 30 (arithExpression)
+
+
+State 81
+
+   31 arithExpression: ENTERO '/' arithExpression .
+
+    $default  reduce using rule 31 (arithExpression)
+
+
+State 82
+
+   24 paramList: '(' param ')' .
+
+    $default  reduce using rule 24 (paramList)
+
+
+State 83
+
+   23 param: arithExpression ',' . param
+
+    ID      shift, and go to state 31
+    ENTERO  shift, and go to state 32
+
+    param            go to state 99
+    arithExpression  go to state 58
+
+
+State 84
+
+   11 callFunction: ID '=' paramList '(' ')' .
+
+    $default  reduce using rule 11 (callFunction)
+
+
+State 85
+
+    5 sent: REGRESA '(' ID ')' ';' .
+
+    $default  reduce using rule 5 (sent)
+
+
+State 86
+
+   12 defFunction: DEF ID '(' paramList ')' . instBlock
+
+    '{'  shift, and go to state 7
+
+    instBlock  go to state 100
+
+
+State 87
+
+   46 logicSentence: '(' logicSentence ')' .
+
+    $default  reduce using rule 46 (logicSentence)
+
+
+State 88
+
+   39 logicExpression: arithExpression IGUAL arithExpression .
+
+    $default  reduce using rule 39 (logicExpression)
+
+
+State 89
+
+   38 logicExpression: arithExpression DIFER arithExpression .
+
+    $default  reduce using rule 38 (logicExpression)
+
+
+State 90
+
+   36 logicExpression: arithExpression LESSOREQ arithExpression .
+
+    $default  reduce using rule 36 (logicExpression)
+
+
+State 91
+
+   37 logicExpression: arithExpression MOREOREQ arithExpression .
+
+    $default  reduce using rule 37 (logicExpression)
+
+
+State 92
+
+   40 logicExpression: arithExpression '>' arithExpression .
+
+    $default  reduce using rule 40 (logicExpression)
+
+
+State 93
+
+   41 logicExpression: arithExpression '<' arithExpression .
+
+    $default  reduce using rule 41 (logicExpression)
+
+
+State 94
+
+   44 logicSentence: logicExpression '&' logicExpression .
+
+    $default  reduce using rule 44 (logicSentence)
+
+
+State 95
+
+   45 logicSentence: logicExpression '|' logicExpression .
+
+    $default  reduce using rule 45 (logicSentence)
+
+
+State 96
+
+   15 ifSentence: SI '(' logicSentence ')' '{' . sentList '}'
+   16           | SI '(' logicSentence ')' '{' . sentList '}' OTRO '{' sentList '}'
+
+    ID         shift, and go to state 1
+    REGRESA    shift, and go to state 2
+    DEF        shift, and go to state 3
+    SI         shift, and go to state 4
+    MIENTRAS   shift, and go to state 5
+    DESPLIEGA  shift, and go to state 6
+
+    sent             go to state 9
+    assignation      go to state 10
+    callFunction     go to state 11
+    defFunction      go to state 12
+    controlSentence  go to state 13
+    ifSentence       go to state 14
+    whileSentence    go to state 15
+    sentList         go to state 101
+
+
+State 97
+
+   17 whileSentence: MIENTRAS '(' logicSentence ')' '{' . sentList '}'
+
+    ID         shift, and go to state 1
+    REGRESA    shift, and go to state 2
+    DEF        shift, and go to state 3
+    SI         shift, and go to state 4
+    MIENTRAS   shift, and go to state 5
+    DESPLIEGA  shift, and go to state 6
+
+    sent             go to state 9
+    assignation      go to state 10
+    callFunction     go to state 11
+    defFunction      go to state 12
+    controlSentence  go to state 13
+    ifSentence       go to state 14
+    whileSentence    go to state 15
+    sentList         go to state 102
+
+
+State 98
+
+    6 sent: DESPLIEGA '(' CADENA ')' ';' .
+
+    $default  reduce using rule 6 (sent)
+
+
+State 99
+
+   23 param: arithExpression ',' param .
+
+    $default  reduce using rule 23 (param)
+
+
+State 100
+
+   12 defFunction: DEF ID '(' paramList ')' instBlock .
+
+    $default  reduce using rule 12 (defFunction)
+
+
+State 101
+
+   15 ifSentence: SI '(' logicSentence ')' '{' sentList . '}'
+   16           | SI '(' logicSentence ')' '{' sentList . '}' OTRO '{' sentList '}'
+
+    '}'  shift, and go to state 103
+
+
+State 102
+
+   17 whileSentence: MIENTRAS '(' logicSentence ')' '{' sentList . '}'
+
+    '}'  shift, and go to state 104
+
+
+State 103
+
+   15 ifSentence: SI '(' logicSentence ')' '{' sentList '}' .
+   16           | SI '(' logicSentence ')' '{' sentList '}' . OTRO '{' sentList '}'
+
+    OTRO  shift, and go to state 105
+
+    $default  reduce using rule 15 (ifSentence)
+
+
+State 104
+
+   17 whileSentence: MIENTRAS '(' logicSentence ')' '{' sentList '}' .
+
+    $default  reduce using rule 17 (whileSentence)
+
+
+State 105
+
+   16 ifSentence: SI '(' logicSentence ')' '{' sentList '}' OTRO . '{' sentList '}'
+
+    '{'  shift, and go to state 106
+
+
+State 106
+
+   16 ifSentence: SI '(' logicSentence ')' '{' sentList '}' OTRO '{' . sentList '}'
+
+    ID         shift, and go to state 1
+    REGRESA    shift, and go to state 2
+    DEF        shift, and go to state 3
+    SI         shift, and go to state 4
+    MIENTRAS   shift, and go to state 5
+    DESPLIEGA  shift, and go to state 6
+
+    sent             go to state 9
+    assignation      go to state 10
+    callFunction     go to state 11
+    defFunction      go to state 12
+    controlSentence  go to state 13
+    ifSentence       go to state 14
+    whileSentence    go to state 15
+    sentList         go to state 107
+
+
+State 107
+
+   16 ifSentence: SI '(' logicSentence ')' '{' sentList '}' OTRO '{' sentList . '}'
+
+    '}'  shift, and go to state 108
+
+
+State 108
+
+   16 ifSentence: SI '(' logicSentence ')' '{' sentList '}' OTRO '{' sentList '}' .
+
+    $default  reduce using rule 16 (ifSentence)
